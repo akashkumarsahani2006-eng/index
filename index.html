@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Bae 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 20% 20%, #ff9aa2 0%, transparent 40%),
+      radial-gradient(circle at 80% 30%, #ffb7b2 0%, transparent 40%),
+      radial-gradient(circle at 50% 80%, #ffdac1 0%, transparent 40%),
+      #ffe4ec;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card{
+    background:white;
+    padding:35px 25px;
+    border-radius:25px;
+    text-align:center;
+    width:90%;
+    max-width:420px;
+    box-shadow:0 25px 50px rgba(0,0,0,.2);
+}
+
+h1,h2{
+    color:#ff4d79;
+    margin-bottom:20px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+}
+
+button{
+    padding:12px 28px;
+    font-size:1.05rem;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+#yes{
+    background:#ff4d79;
+    color:white;
+}
+#yes:hover{ transform:scale(1.1); }
+
+#no{
+    background:#eee;
+}
+
+.escape{
+    animation:fly .8s forwards;
+}
+
+@keyframes fly{
+    to{
+        transform:translate(120vw,-120vh) rotate(720deg);
+        opacity:0;
+    }
+}
+
+.success{
+    display:none;
+    animation:pop 1s forwards;
+}
+
+@keyframes pop{
+    from{opacity:0; transform:scale(.7);}
+    to{opacity:1; transform:scale(1);}
+}
+
+#loveText{
+    display:none;
+    margin-top:15px;
+    color:#444;
+    line-height:1.6;
+}
+
+#nextPage{
+    margin-top:15px;
+    background:#ff4d79;
+    color:white;
+}
+
+#thingsPage{
+    display:none;
+}
+
+/* NEW IMAGE STYLE */
+.coupleImg{
+    width:100%;
+    max-width:280px;
+    margin:15px auto;
+    display:block;
+    border-radius:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1 id="question">Will you be my Valentine, bae? 🧸</h1>
+
+<div class="buttons" id="btns">
+    <button id="yes">Yes 💖</button>
+    <button id="no">No 😏</button>
+</div>
+
+<div class="success" id="success">
+
+    <!-- PAGE 2 -->
+    <div id="pageLove">
+        <h2>YAYYY 😭💘</h2>
+        <p>You just made ayy the happiest human alive 🥹</p>
+
+        <button id="reveal">Click Me 💌</button>
+
+        <div id="loveText">
+            Hey bae 💖  
+            You make my world softer and brighter.  
+            This Valentine’s Day is special  
+            because <b>you</b> are my Valentine.  
+            <br><br>
+            — yours, ayy 🫶  
+            <br><br>
+            <button id="nextPage">Next ➜</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div id="thingsPage">
+        <h2>Things I Know About You 🧸</h2>
+
+        <!-- ✅ YOUR IMAGE -->
+        <img src="couple.png" class="coupleImg">
+
+        <p>
+            • You smile even when you're tired 💗<br>
+            • You act strong but you’re soft inside 🥹<br>
+            • You overthink small things 😆<br>
+            • You care more than you show 💖<br>
+            • You’re cutest when you’re being yourself 🧸<br>
+            • You made ayy fall for you without trying 💘
+        </p>
+
+        <p style="margin-top:15px;color:#ff4d79;font-weight:600;">
+            And I want to keep learning you… forever 💫
+        </p>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", ()=>{
+
+let noCount = 0;
+
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const success = document.getElementById("success");
+const reveal = document.getElementById("reveal");
+const loveText = document.getElementById("loveText");
+const nextPage = document.getElementById("nextPage");
+const pageLove = document.getElementById("pageLove");
+const thingsPage = document.getElementById("thingsPage");
+
+noBtn.addEventListener("click", ()=>{
+    noCount++;
+
+    if(noCount === 1){
+        const r = noBtn.getBoundingClientRect();
+        noBtn.style.position="fixed";
+        noBtn.style.left=r.left+"px";
+        noBtn.style.top=r.top+"px";
+    }
+
+    if(noCount < 4){
+        noBtn.style.left=Math.random()*(window.innerWidth-100)+"px";
+        noBtn.style.top=Math.random()*(window.innerHeight-50)+"px";
+    }else{
+        noBtn.classList.add("escape");
+    }
+});
+
+yesBtn.addEventListener("click", ()=>{
+    success.style.display="block";
+    document.getElementById("question").style.display="none";
+    document.getElementById("btns").style.display="none";
+});
+
+reveal.addEventListener("click", ()=>{
+    loveText.style.display="block";
+});
+
+nextPage.addEventListener("click", ()=>{
+    pageLove.style.display="none";
+    thingsPage.style.display="block";
+});
+
+});
+</script>
+
+</body>
+</html>
