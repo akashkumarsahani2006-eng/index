@@ -53,17 +53,18 @@ button{
     border:none;
     border-radius:30px;
     cursor:pointer;
-    transition:.3s;
 }
 
 #yes{
     background:#ff4d79;
     color:white;
+    transition:.3s;
 }
 #yes:hover{ transform:scale(1.1); }
 
 #no{
     background:#eee;
+    transition:left .35s ease, top .35s ease;
 }
 
 .escape{
@@ -104,7 +105,6 @@ button{
     display:none;
 }
 
-/* NEW IMAGE STYLE */
 .coupleImg{
     width:100%;
     max-width:280px;
@@ -130,8 +130,8 @@ button{
 
     <!-- PAGE 2 -->
     <div id="pageLove">
-        <h2>YAYYY 😭💘</h2>
-        <p>You just made ayy the happiest human alive 🥹</p>
+        <h2 id="yay">YAYYY 😭💘</h2>
+        <p id="happyLine">You just made ayy the happiest human alive 🥹</p>
 
         <button id="reveal">Click Me 💌</button>
 
@@ -151,7 +151,6 @@ button{
     <div id="thingsPage">
         <h2>Things I Know About You 🧸</h2>
 
-        <!-- ✅ YOUR IMAGE -->
         <img src="couple.png" class="coupleImg">
 
         <p>
@@ -185,6 +184,15 @@ const loveText = document.getElementById("loveText");
 const nextPage = document.getElementById("nextPage");
 const pageLove = document.getElementById("pageLove");
 const thingsPage = document.getElementById("thingsPage");
+const yay = document.getElementById("yay");
+const happyLine = document.getElementById("happyLine");
+
+function moveNo(){
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+    noBtn.style.left = Math.random()*maxX + "px";
+    noBtn.style.top  = Math.random()*maxY + "px";
+}
 
 noBtn.addEventListener("click", ()=>{
     noCount++;
@@ -194,11 +202,12 @@ noBtn.addEventListener("click", ()=>{
         noBtn.style.position="fixed";
         noBtn.style.left=r.left+"px";
         noBtn.style.top=r.top+"px";
+        requestAnimationFrame(moveNo);
+        return;
     }
 
     if(noCount < 4){
-        noBtn.style.left=Math.random()*(window.innerWidth-100)+"px";
-        noBtn.style.top=Math.random()*(window.innerHeight-50)+"px";
+        moveNo();
     }else{
         noBtn.classList.add("escape");
     }
@@ -206,11 +215,14 @@ noBtn.addEventListener("click", ()=>{
 
 yesBtn.addEventListener("click", ()=>{
     success.style.display="block";
-    document.getElementById("question").style.display="none";
-    document.getElementById("btns").style.display="none";
+    question.style.display="none";
+    btns.style.display="none";
 });
 
 reveal.addEventListener("click", ()=>{
+    yay.style.display="none";
+    happyLine.style.display="none";
+    reveal.style.display="none";
     loveText.style.display="block";
 });
 
