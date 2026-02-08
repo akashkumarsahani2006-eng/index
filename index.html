@@ -34,6 +34,8 @@ body{
     width:90%;
     max-width:420px;
     box-shadow:0 25px 50px rgba(0,0,0,.2);
+    position:relative;
+    z-index:2;
 }
 
 h1,h2{
@@ -112,10 +114,43 @@ button{
     display:block;
     border-radius:20px;
 }
+
+/* 💖 Floating hearts */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    width:12px;
+    height:12px;
+    background:linear-gradient(#ff4d79,#ff9aa2);
+    transform:rotate(45deg);
+    animation:floatUp 6s linear forwards;
+    z-index:1;
+}
+.heart::before,.heart::after{
+    content:"";
+    position:absolute;
+    width:12px;height:12px;
+    background:inherit;
+    border-radius:50%;
+}
+.heart::before{left:-6px;}
+.heart::after{top:-6px;}
+
+@keyframes floatUp{
+    to{
+        transform:translateY(-120vh) rotate(45deg) scale(.3);
+        opacity:0;
+    }
+}
 </style>
 </head>
 
 <body>
+
+<!-- 🎵 Background music -->
+<audio id="bgm" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_3cfdc0b4c3.mp3">
+</audio>
 
 <div class="card">
 
@@ -131,19 +166,19 @@ button{
     <!-- PAGE 2 -->
     <div id="pageLove">
         <h2 id="yay">YAYYY 😭💘</h2>
-        <p id="happyLine">You just made ayy the happiest human alive 🥹</p><br>
+        <p id="happyLine">You just made ayy the happiest human alive 🥹</p>
 
         <button id="reveal">Click Me 💌</button>
 
         <div id="loveText">
            Hey bae 💖<br>
-            Even with just avatars, chats, and random game moments, you make everything feel warmer and happier.
-            The way we meet in-game, talk, laugh, or even just stand there quietly it all feels special in its own soft way.
-            This Valentine’s Day isn’t about meeting in real life or doing something big,
-            it’s about the little moments we share, the comfort we feel, and the smile you bring without even trying.
-            And honestly that’s what makes today feel special--you.
+Even with just avatars, chats, and random game moments, you make everything feel warmer and happier.
+The way we meet in-game, talk, laugh, or even just stand there quietly — it all feels special in its own soft way.
+This Valentine’s Day isn’t about meeting in real life or doing something big,
+it’s about the little moments we share, the comfort we feel, and the smile you bring without even trying.
+And honestly, that’s what makes today feel special — you.
             <br><br>
-            -yours, ayy 🫶  
+            - yours, ayy 🫶  
             <br><br>
             <button id="nextPage">Next ➜</button>
         </div>
@@ -159,11 +194,10 @@ button{
             • You love ice cream 🍦💗<br>
             • Your favorite song is Espresso 🎶<br>
             • You look cutest standing AFK next to me 🤧<br>
-            • You’re bad at goodbyes you say “bye” and vanish instantly like a ninja 😭<br>
+            • You’re bad at goodbyes 😭<br>
             • You made ayy fall for you without trying 💘<br>
             • You don’t talk much but when you do it matters 💞<br>
-            • You act normal, but you’re low-key adorable🥰<br>
-            • And yes… I notice all of this more than you think 😉
+            • You act normal, but you’re low-key adorable 😉
         </p>
 
         <p style="margin-top:15px;color:#ff4d79;font-weight:600;">
@@ -190,6 +224,7 @@ const pageLove = document.getElementById("pageLove");
 const thingsPage = document.getElementById("thingsPage");
 const yay = document.getElementById("yay");
 const happyLine = document.getElementById("happyLine");
+const music = document.getElementById("bgm");
 
 function moveNo(){
     const maxX = window.innerWidth - noBtn.offsetWidth - 20;
@@ -221,6 +256,7 @@ yesBtn.addEventListener("click", ()=>{
     success.style.display="block";
     question.style.display="none";
     btns.style.display="none";
+    music.play().catch(()=>{});
 });
 
 reveal.addEventListener("click", ()=>{
@@ -235,9 +271,18 @@ nextPage.addEventListener("click", ()=>{
     thingsPage.style.display="block";
 });
 
+/* 💖 floating hearts generator */
+setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=4+Math.random()*3+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),7000);
+},500);
+
 });
 </script>
 
 </body>
 </html>
-
